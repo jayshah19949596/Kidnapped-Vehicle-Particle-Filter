@@ -122,40 +122,46 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 //   Keep in mind that this transformation requires both rotation AND translation (but no scaling).
 //   The following is a good resource for the theory:
 //   https://www.willamette.edu/~gorr/classes/GeneralGraphics/Transforms/transforms2d.htm
-//   and the following is a good resource for the actual equation to implement (look at equation
-//   3.33
+//   and the following is a good resource for the actual equation to implement (look at equation 3.33)
 //   http://planning.cs.uiuc.edu/node99.html
-//   TODO complete
 
 
-  /*This variable is used for normalizing weights of all particles and bring them in the range of [0, 1]*/
-  double weight_normalizer = 0.0;
+  double weight_normalizer = 0.0; // used for normalizing weights of all particles and bring them in the range of [0, 1]
   double sigma_x, sigma_x_2;
   double sigma_y, sigma_y_2;
   double normalizer;
 
   for (int i = 0; i < num_particles; i++)
   {
-    /*Step 1: Transform observations from vehicle co-ordinates to map co-ordinates.*/
+    // =============================================================================
+    // Step 1: Transform observations from vehicle co-ordinates to map co-ordinates.
+    // =============================================================================
+
     //Vector containing observations transformed to map co-ordinates w.r.t. current particle.
     vector<LandmarkObs> transformed_observations;
     transform_to_map_coordinates(transformed_observations, observations, i);
 
 
-    /*Step 2: Filter map landmarks to keep only those which are in the sensor_range of current
-     particle. Push them to predictions vector.*/
+    // ===================================================================
+    // Step 2: Filter map landmarks to keep only those which are in the
+    // sensor_range of current particle. Push them to predictions vector
+    // ===================================================================
     vector<LandmarkObs> predicted_landmarks;
     get_landmarks_with_in_sensor_range(predicted_landmarks,
                                        map_landmarks, sensor_range,
                                        i);
 
-    /*Step 3: Associate observations to predicted landmarks using nearest neighbor algorithm.*/
-    //Associate observations with predicted landmarks
+    // ===================================================================
+    // Step 3: Associate observations to predicted landmarks using nearest
+    // neighbor algorithm. Associate observations with predicted landmarks
+    // ===================================================================
     dataAssociation(predicted_landmarks, transformed_observations);
 
-    /*Step 4: Calculate the weight of each particle using Multivariate Gaussian distribution.*/
-    //Reset the weight of particle to 1.0
-    particles[i].weight = 1.0;
+    // ===================================================================
+    // Step 4: Calculate the weight of each particle using Multivariate
+    // Gaussian distribution.
+    // ===================================================================
+    particles[i].weight = 1.0;        // Reset the weight of particle to 1.0
 
     sigma_x = std_landmark[0];
     sigma_y = std_landmark[1];
@@ -163,7 +169,10 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
     sigma_y_2 = pow(sigma_y, 2);
     normalizer = (1.0/(2.0 * M_PI * sigma_x * sigma_y));
 
-    /*Calculate the weight of particle based on the multivariate Gaussian probability function*/
+    // ===================================================================
+    // Calculate the weight of particle based on the multivariate
+    // Gaussian probability function
+    // ===================================================================
     for (int j = 0; j < transformed_observations.size(); j++)
     {
       double multi_prob;
@@ -188,7 +197,10 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
     weight_normalizer += particles[i].weight;
   }
 
-  /*Step 5: Normalize the weights of all particles since re-sampling using probabilistic approach.*/
+  // ===================================================================
+  // Step 5: Normalize the weights of all particles since re-sampling
+  // using probabilistic approach.
+  // ===================================================================
   for (int i = 0; i < particles.size(); i++)
   {
     particles[i].weight /= weight_normalizer;
@@ -200,10 +212,15 @@ void ParticleFilter::resample() {
 
   vector<Particle> re_sampled_particles;
 
-  // Create a generator to be used for generating random particle index and beta value
+  // ===================================================================
+  // Create a generator to be used for generating random
+  // particle index and beta value
+  // ===================================================================
   default_random_engine gen;
 
+  // ================================
   //Generate random particle index
+  // ================================
   uniform_int_distribution<int> particle_index(0, num_particles - 1);
 
   int current_index = particle_index(gen);
