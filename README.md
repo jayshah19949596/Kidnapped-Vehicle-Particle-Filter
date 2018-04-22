@@ -36,7 +36,6 @@ In this project, a vehicle is kidnapped inside a closed environment and has no i
 Each major step involved in implementation is illustrated below:
 
 [image1]: ./image-resources/particle-filter-localization-algorithm.png "Particle Filter Localization Algorithm"
-
 ![Particle Filter Localization Algorithm][image1]
 
 The C++ program for localization was implemented using following major steps:
@@ -49,7 +48,6 @@ Particle filter algorithm uses particles to represent the location of vehicle. H
   3. Once map and particles are initialized, the vehicle implements **Prediction** step in which the location of each particle at next time step is predicted. This is done by using information of control inputs and time elapsed between time steps. The control inputs are nothing but magnitude of velocity (v) and yaw rate (θ). Location update is done with the help of formula given below:
   
 [image2]: ./image-resources/prediction-equations.png "Prediction Equations"
-
 ![prediction-equations][image2]
 
   
@@ -57,19 +55,21 @@ Particle filter algorithm uses particles to represent the location of vehicle. H
   
    a. The vehicle uses LIDAR to sense its distance from landmarks and predict the location of landmarks as observed. This is received as a list of x, y coordinates along with the noise mapped as standard deviation in X (σx) and Y (σy) axes. Since, the LIDAR sensor is installed on the robot, these observations are received in x, y coordinate axes relative to the direction of motion of vehicle. This is shown below:
   
-![Vehicle coordinate axes](https://raw.githubusercontent.com/sohonisaurabh/CarND-Kidnapped-Vehicle-Project/master/image-resources/robot_axes_definition.png)
+[image3]: ./image-resources/robot_axes_definition.png "Vehicle coordinate axes"
+![Vehicle coordinate axes][image3]
+
   
    Here, X axis is in the direction of motion of the vehicle and Y axis is perpendicular to X axis to the left.
   
-![Global map coordinate axes](https://raw.githubusercontent.com/sohonisaurabh/CarND-Kidnapped-Vehicle-Project/master/image-resources/global-map-axes-definition.png)
+[image4]: ./image-resources/global-map-axes-definition.png "Homogenous Coordinate Transformation"
+![Global map coordinate axes][image4]
 
    The landmarks are shown with annotations L1-L5. Observations recorded in vehicle's coordinates are annotated OBS1-OBS3. The ground truth of vehicle is shown in red while the prediction of location vehicle as derived by the particle is shown in blue.
   
    b. To map the observations into global coordinate system, a transformation is done involving translation and rotation but no scaling. This is done by using Homogenous Coordinate Transformation given by the formula below:
     
-[image3]: ./image-resources/homogenous-coordinate-transformation.png "Homogenous Coordinate Transformation"
-
-![Homogenous Coordinate Transformation][image3]
+[image5]: ./image-resources/homogenous-coordinate-transformation.png "Homogenous Coordinate Transformation"
+![Homogenous Coordinate Transformation][image5]
 
 
   where xm, ym represent the transformed observation, xc, yc represent the observations in vehicle's coordinate system and xp, yp the location of particle in global map coordinate system.
@@ -79,8 +79,9 @@ Particle filter algorithm uses particles to represent the location of vehicle. H
    d. After landmarks are filtered, each observation is then mapped to a landmark using nearest neighbor algorithm. The nearest neighbor algorithm is implemented by calculating Euclidean distance between an observation and all landmarks. The landmark with lowest Euclidean distance is associated to the observation. Hence, multiple observations may be associated to a single landmark.
     
    e. Once every observation is associated to a landmark, weight of the particle is calculated by using Multivariate Gaussian distribution. Since all observations are independent, the total weight of the particle is the product of probabilities calculated by Multivariate Gaussian formula for all observations associated to landmarks. Formula for calculation of individual probabilities is given below:
-    
-![Multivariate Gaussian Probability](https://raw.githubusercontent.com/sohonisaurabh/CarND-Kidnapped-Vehicle-Project/master/image-resources/multivariate-gaussian-probability.png)
+ 
+[image6]: ./image-resources/multivariate-gaussian-probability.png "Multivariate Gaussian Probability"
+![Multivariate Gaussian Probability][image6]
 
    where x and y is the observation and µx and µy are the coordinates of associated landmark. The final weight of particle is product of all probabilities.
    
