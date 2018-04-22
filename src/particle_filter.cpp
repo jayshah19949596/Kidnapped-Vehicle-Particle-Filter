@@ -219,7 +219,7 @@ void ParticleFilter::resample() {
   default_random_engine gen;
 
   // ================================
-  //Generate random particle index
+  // Generate random particle index
   // ================================
   uniform_int_distribution<int> particle_index(0, num_particles - 1);
 
