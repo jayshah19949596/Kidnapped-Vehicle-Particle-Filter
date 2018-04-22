@@ -67,7 +67,10 @@ Particle filter algorithm uses particles to represent the location of vehicle. H
   
    b. To map the observations into global coordinate system, a transformation is done involving translation and rotation but no scaling. This is done by using Homogenous Coordinate Transformation given by the formula below:
     
-![Homogenous Coordinate Transformation](https://raw.githubusercontent.com/sohonisaurabh/CarND-Kidnapped-Vehicle-Project/master/image-resources/homogenous-coordinate-transformation.png)
+[image3]: ./image-resources/homogenous-coordinate-transformation.png "Homogenous Coordinate Transformation"
+
+![Homogenous Coordinate Transformation][image3]
+
 
   where xm, ym represent the transformed observation, xc, yc represent the observations in vehicle's coordinate system and xp, yp the location of particle in global map coordinate system.
   
