@@ -35,7 +35,7 @@ In this project, a vehicle is kidnapped inside a closed environment and has no i
 
 Each major step involved in implementation is illustrated below:
 
-[image1]: "./image-resources/particle-filter-localization-algorithm.png"
+[image1]: ./image-resources/particle-filter-localization-algorithm.png "Particle Filter Localization Algorithm"
 
 ![Particle Filter Localization Algorithm][image1]
 
