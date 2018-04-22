@@ -35,7 +35,9 @@ In this project, a vehicle is kidnapped inside a closed environment and has no i
 
 Each major step involved in implementation is illustrated below:
 
-![Particle Filter Localization Algorithm](https://raw.githubusercontent.com/sohonisaurabh/CarND-Kidnapped-Vehicle-Project/master/image-resources/particle-filter-localization-algorithm.png)
+[image1]: ./image-resources/particle-filter-localization-algorithm.png"
+
+![Particle Filter Localization Algorithm][image1]
 
 The C++ program for localization was implemented using following major steps:
 
@@ -86,20 +88,6 @@ Particle filter algorithm uses particles to represent the location of vehicle. H
    
  8. Once initialization, prediction, update and resampling is implemented, the program is run under testing and error in the system along with run time is noted. To get the best estimate of vehicle's position in real time, the number of particles is tuned and finalized.
    
-   
-## Project Output
-
-Particle filter implemented was run on Udacity's simulator and its error and performance was noted. Below are the results with 10 and 20 particles respectively:
-
-  **Run 1: 10 particles**
-  
-![particle-filter-10-particles](https://raw.githubusercontent.com/sohonisaurabh/CarND-Kidnapped-Vehicle-Project/master/image-resources/particle-filter-pass-10-particles.png)
-
-  **Run 2: 20 particles**
-  
-![particle-filter-20-particles](https://raw.githubusercontent.com/sohonisaurabh/CarND-Kidnapped-Vehicle-Project/master/image-resources/particle-filter-pass-20-particles.png)
-
-In both the runs, implementation was declared as pass since the error and the execution time of code was in permissible limits.
 
 
 ## Steps for building the project
