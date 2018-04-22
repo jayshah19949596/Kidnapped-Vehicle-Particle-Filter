@@ -48,7 +48,10 @@ Particle filter algorithm uses particles to represent the location of vehicle. H
   
   3. Once map and particles are initialized, the vehicle implements **Prediction** step in which the location of each particle at next time step is predicted. This is done by using information of control inputs and time elapsed between time steps. The control inputs are nothing but magnitude of velocity (v) and yaw rate (θ). Location update is done with the help of formula given below:
   
-![prediction-equations](https://raw.githubusercontent.com/sohonisaurabh/CarND-Kidnapped-Vehicle-Project/master/image-resources/prediction-equations.png)
+[image2]: ./image-resources/prediction-equations.png "Prediction Equations"
+
+![prediction-equations][image2]
+
   
   4. After prediction step, the vehicle implements **Update** step. In this step, particles are assigned with weights corresponding to their prediction. The process is stated below:
   
